@@ -1,8 +1,8 @@
-const int TIMER = 18;
-const int LED_PINS[] = { 
-  2, 3, 5, 
-  6, 7, 8, 
-  9, 11, 12 
+const int TIMER = 180;
+const int LED_PINS[] = {
+  4,  5,  6,
+  7,  8,  10,
+  11, 12, 13
 };
 const int LEDS_AMOUNT = 9;
 const int TIMER_PORTION = TIMER / LEDS_AMOUNT;
@@ -14,11 +14,11 @@ const setLowAndBlinkSpecificLed(int currentLed) {
     digitalWrite(LED_PINS[currentLed], LOW);
   } if (currentLed > 0) {
     digitalWrite(LED_PINS[currentLed - 1], LOW);
-  delay(500);
-  digitalWrite(LED_PINS[currentLed - 1], HIGH);
-  delay(500);
-   }
-  
+    delay(500);
+    digitalWrite(LED_PINS[currentLed - 1], HIGH);
+    delay(500);
+  }
+
 }
 
 void setup() {
@@ -36,22 +36,20 @@ void loop() {
     seconds--;
     if (seconds == TIMER) {
       setLowAndBlinkSpecificLed(LEDS_AMOUNT);
-    } 
+    }
     if (seconds == 0) {
       setLowAndBlinkSpecificLed(0);
     }
-
     for (int i = 0; i < 9; i++) {
       int index = 9 - i;
       if (
-        seconds <  (TIMER_PORTION) * index && 
+        seconds <  (TIMER_PORTION) * index &&
         seconds >= (TIMER_PORTION) * index - 1
       ) {
-       for (int j = 0; j < TIMER_PORTION; j++) {
-        setLowAndBlinkSpecificLed(index);
-       }
-      } 
+        for (int j = 0; j < TIMER_PORTION; j++) {
+          setLowAndBlinkSpecificLed(index);
+        }
+      }
     }
-    
   }
 }
