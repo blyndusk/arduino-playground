@@ -1,4 +1,4 @@
-const int TIMER = 180;
+const int TIMER = 18;
 const int LED_PINS[] = {
   4,  5,  6,
   7,  8,  10,
@@ -27,6 +27,8 @@ void setup() {
     pinMode(LED_PINS[i], OUTPUT);
     digitalWrite(LED_PINS[i], HIGH);
   }
+  pinMode(3, OUTPUT);
+  digitalWrite(3, LOW);
   delay(1000);
 }
 
@@ -39,6 +41,7 @@ void loop() {
     }
     if (seconds == 0) {
       setLowAndBlinkSpecificLed(0);
+      digitalWrite(3, HIGH);
     }
     for (int i = 0; i < 9; i++) {
       int index = 9 - i;
