@@ -5,14 +5,15 @@ const int TIMER_LED_PINS[] = {
 };
 const int YELLOW_PIN = 3;
 const int BTN_PIN = 2;
-const int TIMER = 180;
+const int BZ_PIN = 9;
+const int TIMER = 9;
 const int LEDS_AMOUNT = 9;
 const int TIMER_PORTION = TIMER / LEDS_AMOUNT;
 
 int seconds = TIMER;
 int lastState = HIGH;
 int currentState;
-bool isTimerReseted = true;
+bool isTimerReseted = false;
 
 const setLowAndBlinkSpecificLed(int currentLed) {
   if (currentLed  < LEDS_AMOUNT) {
@@ -50,6 +51,7 @@ const startAndEndTimer() {
         setLowAndBlinkSpecificLed(0);
         digitalWrite(TIMER_LED_PINS[0], LOW);
         digitalWrite(YELLOW_PIN, HIGH);
+        setBuzzer();
         Serial.println("TIMER:[END]");
       }
     }
@@ -65,14 +67,26 @@ const resetTimer() {
   Serial.println("TIMER:[RESET]");
 }
 
+const setBuzzer() {
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 4; j++) {
+      tone(BZ_PIN, 2000);
+      delay(75);
+      noTone(BZ_PIN);
+      delay(75);
+    }
+    delay(500);
+  }
+}
+
 void setup() {
   Serial.begin(9600);
   pinMode(BTN_PIN, INPUT_PULLUP);
   pinMode(YELLOW_PIN, OUTPUT);
+  pinMode(BZ_PIN, OUTPUT);
   digitalWrite(YELLOW_PIN, HIGH);
   for (int i = 0; i < LEDS_AMOUNT; i++) {
     pinMode(TIMER_LED_PINS[i], OUTPUT);
-    digitalWrite(TIMER_LED_PINS[i], HIGH);
   }
   Serial.println("\n\n\n----------------\nSCRIPT:[START]");
 }
