@@ -5,16 +5,13 @@ const int TIMER_LED_PINS[] = {
 };
 const int YELLOW_PIN = 3;
 const int BTN_PIN = 2;
-
-const int TIMER = 27;
+const int TIMER = 180;
 const int LEDS_AMOUNT = 9;
 const int TIMER_PORTION = TIMER / LEDS_AMOUNT;
 
 int seconds = TIMER;
-
 int lastState = HIGH;
 int currentState;
-int ledState = LOW;
 bool isTimerReseted = true;
 
 const setLowAndBlinkSpecificLed(int currentLed) {
@@ -25,16 +22,14 @@ const setLowAndBlinkSpecificLed(int currentLed) {
   delay(500);
   digitalWrite(TIMER_LED_PINS[currentLed], HIGH);
   delay(500);
-  Serial.print("Remaining time: ");
-  Serial.println(seconds);
-
 }
 
 const switchOffLed(int currentLed) {
   if (
     seconds <  TIMER_PORTION * currentLed + 1 &&
     seconds >= TIMER_PORTION * currentLed
-  ) {;
+  ) {
+    ;
     for (int j = 0; j < TIMER_PORTION; j++) {
       setLowAndBlinkSpecificLed(currentLed);
     }
@@ -64,7 +59,7 @@ const startAndEndTimer() {
 const resetTimer() {
   seconds = TIMER;
   digitalWrite(YELLOW_PIN, HIGH);
-  for (int i = 0; i < TIMER; i++) {
+  for (int i = 0; i < LEDS_AMOUNT; i++) {
     digitalWrite(TIMER_LED_PINS[i], HIGH);
   }
   Serial.println("TIMER:[RESET]");
