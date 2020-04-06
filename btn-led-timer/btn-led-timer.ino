@@ -1,11 +1,11 @@
+const int BTN_PIN = 2;
+const int BZ_PIN = 3;
+const int YELLOW_PIN = 4;
 const int TIMER_LED_PINS[] = {
-  4,  5,  6,
-  7,  8,  10,
+  5,  6,  7,
+  8,  9,  10,
   11, 12, 13,
 };
-const int YELLOW_PIN = 3;
-const int BTN_PIN = 2;
-const int BZ_PIN = 9;
 const int TIMER = 9;
 const int LEDS_AMOUNT = 9;
 const int TIMER_PORTION = TIMER / LEDS_AMOUNT;
@@ -14,6 +14,7 @@ int seconds = TIMER;
 int lastState = HIGH;
 int currentState;
 bool isTimerReseted = false;
+bool isBuzzer = true;
 
 const setLowAndBlinkSpecificLed(int currentLed) {
   if (currentLed  < LEDS_AMOUNT) {
@@ -51,7 +52,9 @@ const startAndEndTimer() {
         setLowAndBlinkSpecificLed(0);
         digitalWrite(TIMER_LED_PINS[0], LOW);
         digitalWrite(YELLOW_PIN, HIGH);
-        setBuzzer();
+        if (isBuzzer) {
+          setBuzzer();
+        }
         Serial.println("TIMER:[END]");
       }
     }
