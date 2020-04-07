@@ -28,4 +28,4 @@ JW1 - JW | 26 - 27 | Jumper Wires
 
 ## Circuit Diagram
 
-![diagram](./btn-led-timer.png)
+![diagram](./visual-timer.png)
