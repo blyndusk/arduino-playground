@@ -1,4 +1,4 @@
-# btn-led-timer
+# Visual (LED) Timer
 
 ## Use
 
